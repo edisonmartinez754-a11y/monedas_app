@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-class ConfiguracionApi {
-  static String get urlBase {
+class ApiConfig {
+  static String get baseUrl {
     if (kIsWeb) {
       return 'http://127.0.0.1:8080/api';
     }

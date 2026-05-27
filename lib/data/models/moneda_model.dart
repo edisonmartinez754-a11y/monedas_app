@@ -23,7 +23,7 @@ class Moneda {
     );
   }
 
-  static List<Moneda> desdeListaJson(dynamic jsonList) {
+  static List<Moneda> fromJsonList(dynamic jsonList) {
     if (jsonList == null) return [];
     return (jsonList as List)
         .map((item) => Moneda.fromJson(item as Map<String, dynamic>))
@@ -54,7 +54,7 @@ class CambioMoneda {
     );
   }
 
-  static List<CambioMoneda> desdeListaJson(dynamic jsonList) {
+  static List<CambioMoneda> fromJsonList(dynamic jsonList) {
     if (jsonList == null) return [];
     return (jsonList as List)
         .map((item) => CambioMoneda.fromJson(item as Map<String, dynamic>))

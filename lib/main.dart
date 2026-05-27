@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'vistas/login.dart';
-import 'vistas/monedavista.dart';
+import 'core/theme/app_theme.dart';
+import 'presentation/pages/login_page.dart';
+import 'presentation/pages/moneda_page.dart';
 
 void main() {
   runApp(const MonedasApp());
@@ -10,7 +11,7 @@ void main() {
 class MonedasApp extends StatelessWidget {
   const MonedasApp({super.key});
 
-  Future<bool> _tieneSesion() async {
+  Future<bool> _hasSession() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     return token != null && token.isNotEmpty;
@@ -19,14 +20,11 @@ class MonedasApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Monedas App',
+      title: 'MonedaPro',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme,
       home: FutureBuilder<bool>(
-        future: _tieneSesion(),
+        future: _hasSession(),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Scaffold(
@@ -34,14 +32,14 @@ class MonedasApp extends StatelessWidget {
             );
           }
           if (snapshot.data == true) {
-            return const MonedaVista();
+            return const MonedaPage();
           }
-          return const Login();
+          return const LoginPage();
         },
       ),
       routes: {
-        "/login": (context) => const Login(),
-        "/monedas": (context) => const MonedaVista(),
+        "/login": (context) => const LoginPage(),
+        "/monedas": (context) => const MonedaPage(),
       },
     );
   }
